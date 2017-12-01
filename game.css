@@ -14,7 +14,13 @@ div.container{
 
 div#banner{
 	text-align: center;
-	color: white;
+	height: 40px;
+	background-color:white;
+}
+
+span#result{
+	font-weight: bold;
+	padding: 0 5%;
 }
 
 .square{

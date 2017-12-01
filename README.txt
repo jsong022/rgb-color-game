@@ -11,6 +11,7 @@ Made as a practice for HTML, CSS, and JavaScript
 	the Result shows "try again" & chosen Square turns "invisible" 
 - The set of color choices, the target color, and the "corrct" Square
 	are all randomized.
+- New Game button's text changes upon winning
 
 To Add:
 - Make it look pretty (get some CSS & Bootstrap practice)
