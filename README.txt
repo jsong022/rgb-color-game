@@ -9,10 +9,10 @@ Made as a practice for HTML, CSS, and JavaScript
 	the Result shows "correct" & all Squares change to that color
 - If the color guessed is not the one represented by the RGB given:
 	the Result shows "try again" & chosen Square turns "invisible" 
+- The set of color choices, the target color, and the "corrct" Square
+	are all randomized.
 
 To Add:
-- Randomize the colors (both the target color & the color choices)
-- Randomize the answer Square (currently is the same one every time)
 - Make it look pretty (get some CSS & Bootstrap practice)
 - Add different difficulties (more/less choices to choose from)
 
