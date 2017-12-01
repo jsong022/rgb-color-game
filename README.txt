@@ -18,6 +18,7 @@ Made as a practice for HTML, CSS, and JavaScript
 	Hard: 9 Choices
 - Made it not an eyesore using some CSS
 - Added some simple fade animations to the game
+- Changed game.html to index.html for gh-pages branch (to use GitHub Pages)
 
 Author: Jay Song
 Date: 11/30/2017
