@@ -16,9 +16,8 @@ Made as a practice for HTML, CSS, and JavaScript
 	Easy: 3 choices
 	Normal: 6 Choices
 	Hard: 9 Choices
-
-To Add:
-- Make it look pretty (get some CSS & Bootstrap practice)
+- Made it not an eyesore using some CSS
+- Added some simple fade animations to the game
 
 Author: Jay Song
 Date: 11/30/2017

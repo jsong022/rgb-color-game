@@ -2,7 +2,7 @@
 var squares = document.getElementsByClassName("square"); //all the Squares on page
 var display = document.querySelector("#display"); // the displayed Target Color
 var result = document.getElementById("result"); // the displayed Result of guess
-var heading = document.getElementsByTagName("h1")[0]; //the Heading of the page
+var heading = document.querySelector("#heading"); //the Heading of the page
 var reset = document.querySelector("button#reset"); //the reset button
 var easy = document.querySelector("button#easy"); //the easy button
 var normal = document.querySelector("button#normal"); //the normal button
@@ -11,27 +11,22 @@ var hard = document.querySelector("button#hard"); //the hard button
 //default difficulty is Normal (or 6 choices)
 var difficulty = 6;
 normal.classList.add("current");
-
 //set up colors with the needed number of random colors
 var colors = generateColors(difficulty);
-
 //randomly pick the "correct" color user should guess
-targetColor = colors[randomInteger(difficulty)];
-
+var targetColor = colors[randomInteger(difficulty)];
+//save the body's background color for easy access
+var bodyColor = document.body.style.backgroundColor;
 //let the user know what the target color is
-display.textContent = targetColor.substr(3);
+display.textContent = targetColor;
 
 
 //manipulate each Square
 for (var i = 0; i < squares.length; i++){ //for each Square on page
-	if (i < difficulty){ //set color if it's valid
-		squares[i].style.backgroundColor = colors[i]; //assign color to current Square	
-	}
-	else{ //if not turn this Square "invisible"
-		squares[i].style.backgroundColor = document.body.style.backgroundColor;
-	}
+	//square gets a color if valid, otherwise it is "invisible"
+	squares[i].style.backgroundColor = (i < difficulty) ? colors[i] : bodyColor;
 	squares[i].addEventListener("click", function(){ //add a click event listener to the Square
-		if (this.style.backgroundColor !== document.body.style.backgroundColor){ // if the Square is not "invisible"
+		if (this.style.backgroundColor !== bodyColor){ // if the Square is not "invisible"
 			if (this.style.backgroundColor === targetColor){//if correct guess
 				result.textContent = "Correct!"; //show Result of guess to user
 				reset.textContent = "Play again?" // changes reset button's text
@@ -39,7 +34,7 @@ for (var i = 0; i < squares.length; i++){ //for each Square on page
 			}
 			else{//if incorrect guess
 				//set square color to be body's background color, i.e. "invisible"
-				this.style.backgroundColor = document.body.style.backgroundColor;
+				this.style.backgroundColor = bodyColor;
 				result.textContent = "Try again!" //show Result of guess to user
 			}
 		}
@@ -64,21 +59,18 @@ function resetGame(){
 	//set up colors with the needed number of random colors
 	var colors = generateColors(difficulty);
 	//reset heading background color
-	heading.style.backgroundColor = document.body.style.backgroundColor;
+	heading.style.backgroundColor = "seagreen";
 	//reset each valid Square color
-	for (var i = 0; i < difficulty; i++){ //for each Square on page
-		squares[i].style.backgroundColor = colors[i]; //assign color to current Square
-	}
-	// turn all invalid Squares "invisible"
-	for (var i = difficulty; i < squares.length; i++){
-		squares[i].style.backgroundColor = document.body.style.backgroundColor;
+	for (var i = 0; i < squares.length; i++){ //for each Square on page
+		//square gets a color if valid, otherwise it is "invisible"
+		squares[i].style.backgroundColor = (i < difficulty) ? colors[i] : bodyColor;
 	}
 	//randomly pick the "correct" color user should guess
 	targetColor = colors[randomInteger(difficulty)];
 	//let the user know what the target color is
-	display.textContent = targetColor.substr(3);
+	display.textContent = targetColor;
 	//reset the Result
-	result.textContent = "Guess the color!";
+	result.textContent = "";
 	//reset the Reset Button text
 	reset.textContent = "New Game"
 }
