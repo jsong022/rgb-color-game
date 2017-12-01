@@ -12,10 +12,13 @@ Made as a practice for HTML, CSS, and JavaScript
 - The set of color choices, the target color, and the "corrct" Square
 	are all randomized.
 - New Game button's text changes upon winning
+- 3 Difficulty settings (Easy/Normal/Hard)
+	Easy: 3 choices
+	Normal: 6 Choices
+	Hard: 9 Choices
 
 To Add:
 - Make it look pretty (get some CSS & Bootstrap practice)
-- Add different difficulties (more/less choices to choose from)
 
 Author: Jay Song
 Date: 11/30/2017
