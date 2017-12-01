@@ -12,6 +12,11 @@ div.container{
 	max-width: 50%;
 }
 
+div#banner{
+	text-align: center;
+	color: white;
+}
+
 .square{
 	width: 30%;
 	margin: 1.66%;
