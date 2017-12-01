@@ -1,4 +1,5 @@
-//select and save pieces of the HTML we need to manipulate
+/*-- SELECT AND SAVE ALL DOM OBJECTS NEEDED --*/
+
 var squares = document.getElementsByClassName("square"); //all the Squares on page
 var display = document.querySelector("#display"); // the displayed Target Color
 var result = document.getElementById("result"); // the displayed Result of guess
@@ -8,51 +9,68 @@ var easy = document.querySelector("button#easy"); //the easy button
 var normal = document.querySelector("button#normal"); //the normal button
 var hard = document.querySelector("button#hard"); //the hard button
 
+/*-- SET UP ALL OTHER VARIABLES NEEDED --*/
+
 //default difficulty is Normal (or 6 choices)
 var difficulty = 6;
 normal.classList.add("current");
-//set up colors with the needed number of random colors
-var colors = generateColors(difficulty);
-//randomly pick the "correct" color user should guess
-var targetColor = colors[randomInteger(difficulty)];
+//colors is an array of color strings in rgb format
+var colors = [];
+//targetColor saves the "correct" color the user is guessing
+var targetColor = "";
 //save the body's background color for easy access
 var bodyColor = document.body.style.backgroundColor;
-//let the user know what the target color is
-display.textContent = targetColor;
 
+/*-- HERE ARE ALL THE FUNCTIONS THE GAME USES --*/
 
-//manipulate each Square
-for (var i = 0; i < squares.length; i++){ //for each Square on page
-	//square gets a color if valid, otherwise it is "invisible"
-	squares[i].style.backgroundColor = (i < difficulty) ? colors[i] : bodyColor;
-	squares[i].addEventListener("click", function(){ //add a click event listener to the Square
-		if (this.style.backgroundColor !== bodyColor){ // if the Square is not "invisible"
-			if (this.style.backgroundColor === targetColor){//if correct guess
-				result.textContent = "Correct!"; //show Result of guess to user
-				reset.textContent = "Play again?" // changes reset button's text
-				changeColors(targetColor); // changes all Squares & heading background to be the Target Color
-			}
-			else{//if incorrect guess
-				//set square color to be body's background color, i.e. "invisible"
-				this.style.backgroundColor = bodyColor;
-				result.textContent = "Try again!" //show Result of guess to user
-			}
-		}
+//sets up all the event listeners
+//then starts a new game
+function init(){
+	//add event listeners to the buttons
+	setUpButtonListeners();
+	//add event listeners to the squares
+	setUpSquareListeners();
+	//setup the game after setting up every event listener
+	resetGame();
+}
+
+//add event listeners to the buttons (Reset, Easy, Normal, Hard!)
+function setUpButtonListeners(){
+	reset.addEventListener("click", resetGame);
+	easy.addEventListener("click", function(){
+		setDifficulty(easy, 3);
+	});
+	normal.addEventListener("click", function(){
+		setDifficulty(normal, 6);
+	});
+	hard.addEventListener("click", function(){
+		setDifficulty(hard, 9);
 	});
 }
 
-//add event listeners to the buttons
-reset.addEventListener("click", resetGame);
-easy.addEventListener("click", function(){
-	setDifficulty(easy, 3);
-});
-normal.addEventListener("click", function(){
-	setDifficulty(normal, 6);
-});
-hard.addEventListener("click", function(){
-	setDifficulty(hard, 9);
-});
-
+//add event listeners to the squares
+function setUpSquareListeners(){
+	for (var i = 0; i < squares.length; i++){
+		//add a click event listener to each Square
+		squares[i].addEventListener("click", function(){ 
+			// if the Square is not "invisible"
+			if (this.style.backgroundColor !== bodyColor){ 
+				//if correct guess
+				if (this.style.backgroundColor === targetColor){
+					result.textContent = "Correct!"; //show Result of guess to user
+					reset.textContent = "Play again?" // changes reset button's text
+					changeColors(targetColor); // changes all Squares & heading background to be the Target Color
+				}
+				//if incorrect guess
+				else{
+					//set square color to be body's background color, i.e. "invisible"
+					this.style.backgroundColor = bodyColor;
+					result.textContent = "Try again!" //show Result of guess to user
+				}
+			}
+		});
+	}
+}
 
 // resets the entire game with new random values
 function resetGame(){
@@ -109,6 +127,9 @@ function generateColors(num){
 	return temp;
 }
 
+//sets the "difficulty" of the game to num
+//and the correct button is switched to the "current" class
+//resets the game iff the difficulty is changed
 function setDifficulty(btn, num){
 	var prev = document.querySelector("button.current");
 	if (prev !== btn){
@@ -118,3 +139,6 @@ function setDifficulty(btn, num){
 		resetGame();
 	}
 }
+
+/*-- START THE GAME! --*/
+init();
